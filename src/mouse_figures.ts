@@ -16,11 +16,12 @@ async function mouseDraw(command: any[]) {
     const size = [Number(command[1]), Number(command[2])];
     const objControl: { [index: string]: any } = {
       "draw_square": async () => {
-        await (
-          await (
-            await (await mouse.drag(left(size[0]))).drag(up(size[0]))
-          ).drag(right(size[0]))
-        ).drag(down(size[0]));
+        await mouse.pressButton(Button.LEFT)
+        await mouse.move(left(size[0]))
+        await mouse.move(up(size[0]))
+        await mouse.move(right(size[0]))
+        await mouse.move(down(size[0]))
+        await mouse.releaseButton(Button.LEFT)
       },
       "draw_circle": async () => {
         const { x, y } = await mouse.getPosition()
@@ -37,11 +38,12 @@ async function mouseDraw(command: any[]) {
         await mouse.releaseButton(Button.LEFT)
       },
       "draw_rectangle": async () => {
-        await (
-          await (
-            await (await mouse.drag(left(size[0]))).drag(up(size[1]))
-          ).drag(right(size[0]))
-        ).drag(down(size[1]));
+        await mouse.pressButton(Button.LEFT)
+        await mouse.move(left(size[0]))
+        await mouse.move(up(size[1]))
+        await mouse.move(right(size[0]))
+        await mouse.move(down(size[1]))
+        await mouse.releaseButton(Button.LEFT)
       }
     }
     if (commandType) {
