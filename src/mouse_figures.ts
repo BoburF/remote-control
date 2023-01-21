@@ -24,16 +24,19 @@ async function mouseDraw(command: any[]) {
       },
       "draw_circle": async () => {
         const { x, y } = await mouse.getPosition()
-        await mouse.pressButton(Button.LEFT)
         for (let i = 0; i <= Math.PI * 2; i += 0.01) {
           const xCor = x + size[0] * Math.cos(i);
           const yCor = y + size[0] * Math.sin(i);
           const newPoint = new Point(xCor, yCor);
+          if (i === 0.01) {
+            await mouse.pressButton(Button.LEFT)
+
+          }
           await mouse.move(straightTo(newPoint));
         }
         await mouse.releaseButton(Button.LEFT)
       },
-      "draw_rectangle": async()=>{
+      "draw_rectangle": async () => {
         await (
           await (
             await (await mouse.drag(left(size[0]))).drag(up(size[1]))
